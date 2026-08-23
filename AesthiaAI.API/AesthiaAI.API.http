@@ -1,0 +1,6 @@
+@AesthiaAI.API_HostAddress = http://localhost:5171
+
+GET {{AesthiaAI.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

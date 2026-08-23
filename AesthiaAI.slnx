@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Itens de Solução/">
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="AesthiaAI.API/AesthiaAI.API.csproj" />
+  <Project Path="AesthiaAI.Application/AesthiaAI.Application.csproj" />
+  <Project Path="AesthiaAI.Domain/AesthiaAI.Domain.csproj" />
+  <Project Path="AesthiaAI.Infrastructure/AesthiaAI.Infrastructure.csproj" />
+  <Project Path="AesthiaAI.Tests/AesthiaAI.Tests.csproj" />
+</Solution>
