@@ -1,4 +1,5 @@
 ﻿using AesthiaAI.Domain.Enums;
+using AesthiaAI.Domain.Exceptions;
 using AesthiaAI.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace AesthiaAI.Domain.Entities
     {
         public Cliente(string nome, string sobrenome, Cpf cpf, Email email, Telefone telefone, Endereco endereco, Autorizacao acesso) : base(nome, sobrenome, cpf, email, telefone, endereco)
         {
-            acesso = Autorizacao.Cliente;
+            Acesso = Autorizacao.Cliente;
         }
 
 
@@ -19,7 +20,15 @@ namespace AesthiaAI.Domain.Entities
 
         public void AlterarAcesso(Autorizacao acesso)
         {
-            Acesso = Acesso;
+
+            if (acesso != Autorizacao.Cliente)
+            {
+                throw new DomainExceptions(
+                    "Cliente não pode possuir outro nível de acesso."
+                );
+            }
+      
+            Acesso = acesso;
         }
     }
 }

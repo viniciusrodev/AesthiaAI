@@ -1,4 +1,5 @@
 ﻿using AesthiaAI.Domain.Enums;
+using AesthiaAI.Domain.Exceptions;
 using AesthiaAI.Domain.ValueObjects;
 
 
@@ -8,7 +9,7 @@ namespace AesthiaAI.Domain.Entities
     {
         public Esteticista(string nome, string sobrenome, Cpf cpf, Email email, Telefone telefone, Endereco endereco, Autorizacao acesso) : base(nome, sobrenome, cpf, email, telefone, endereco)
         {
-            acesso = Autorizacao.Administrador;
+            Acesso = Autorizacao.Administrador;
         }
 
 
@@ -17,7 +18,14 @@ namespace AesthiaAI.Domain.Entities
 
         public void AlterarAcesso(Autorizacao acesso)
         {
-            Acesso = Acesso;
+            if (!Enum.IsDefined(typeof(Autorizacao), acesso))
+            {
+                throw new DomainExceptions(
+                    "Acesso inválido."
+                );
+            }
+
+            Acesso = acesso;
         }
     }
 }

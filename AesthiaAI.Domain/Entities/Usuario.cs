@@ -5,9 +5,13 @@ using AesthiaAI.Domain.ValueObjects;
 
 namespace AesthiaAI.Domain.Entities
 {
-    public class Usuario
+    public abstract class Usuario
     {
-        public Usuario(string nome, string sobrenome, Cpf cpf, Email email, Telefone telefone, Endereco endereco)
+
+        protected Usuario() { }
+       
+
+       public Usuario(string nome, string sobrenome, Cpf cpf, Email email, Telefone telefone, Endereco endereco)
         {
             Id = Guid.NewGuid();
 
@@ -22,17 +26,17 @@ namespace AesthiaAI.Domain.Entities
         }
 
         public Guid Id { get; private set; }
-        public string Nome { get; private set; }
+        public string Nome { get; private set; } = string.Empty;
 
-        public string Sobrenome { get; private set; }
+        public string Sobrenome { get; private set; } = string.Empty;
 
-        public Cpf Cpf { get; private set; }
+        public Cpf Cpf { get; private set; } = null!;
 
-        public Email Email { get; private set; }
+        public Email Email { get; private set; } = null!;
 
-        public Telefone Telefone { get; private set; }
+        public Telefone Telefone { get; private set; } = null!;
 
-        public Endereco Endereco { get; private set; }
+        public Endereco Endereco { get; private set; } = null!;
 
         public DateTime DataCadastro { get; private set; }
 

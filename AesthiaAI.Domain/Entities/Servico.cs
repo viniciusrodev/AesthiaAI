@@ -8,26 +8,25 @@ namespace AesthiaAI.Domain.Entities
 {
     public class Servico
     {
-        public Servico(string nome, decimal valor, TimeSpan tempo, Cliente cliente, Esteticista esteticista)
+        public Servico(string nome, decimal valor, TimeSpan duracao)
         {
-            Nome = nome;
-            Valor = valor;
-            Tempo = tempo;
-            Cliente = cliente;
-            Esteticista = esteticista;
-        }
 
-        public string Nome { get; private set; }
+            Id = Guid.NewGuid();
+
+            AlterarNome(nome);
+            AlterarValor(valor);
+            AlterarDuracao(duracao);
+        
+        }
+        
+        public Guid Id { get; private set; }
+        public string Nome { get; private set; } = string.Empty;
 
         public decimal Valor { get; private set; }
 
-        public TimeSpan Tempo { get; private set; }
+        public TimeSpan Duracao { get; private set; }
 
-        public Cliente Cliente { get; }
-
-        public Esteticista Esteticista { get; }
-
-
+   
 
         public void AlterarNome(string nome)
         {
@@ -41,10 +40,10 @@ namespace AesthiaAI.Domain.Entities
             Valor = valor;
         }
 
-        public void AlterarHora(TimeSpan tempo)
+        public void AlterarDuracao(TimeSpan duracao)
         {
-            ValidarHora(tempo);
-            Tempo = Tempo;
+            ValidarHora(duracao);
+            Duracao = duracao;
         }
 
         private void ValidarNome(string nome)
@@ -62,25 +61,21 @@ namespace AesthiaAI.Domain.Entities
 
         private void ValidarValor(decimal valor)
         {
-
-            Guard.AgainstNull(valor, "Valor não pode ser Nulo");
-
-            if(valor <= 0)
+            if (valor <= 0)
             {
-                throw new DomainExceptions("Valor não pode ser 0 ou menor que 0");
+                throw new DomainExceptions(
+                    "Valor deve ser maior que zero."
+                );
             }
         }
 
         private void ValidarHora(TimeSpan tempo)
         {
-
-            Guard.AgainstNull(tempo, "Tempo de serviço não pode zer nulo");
-
-            if (tempo < TimeSpan.Zero || tempo > TimeSpan.MaxValue)
+            if (tempo <= TimeSpan.Zero)
             {
-
-                throw new DomainExceptions("A Hora deve ser entre 00:00hrs e 23:59hrs.");
-
+                throw new DomainExceptions(
+                    "A duração do serviço deve ser maior que zero."
+                );
             }
         }
     }

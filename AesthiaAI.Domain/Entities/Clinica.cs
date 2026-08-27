@@ -22,13 +22,13 @@ namespace AesthiaAI.Domain.Entities
 
         public Guid Id { get; private set; }
 
-        public string NomeFantasia { get; private set; }
+        public string NomeFantasia { get; private set; } = string.Empty;
 
-        public Cnpj Cnpj { get; private set; }
+        public Cnpj Cnpj { get; private set; } = null!;
 
-        public Telefone Telefone { get; private set; }
+        public Telefone Telefone { get; private set; } = null!;
 
-        public Email Email { get; private set; }
+        public Email Email { get; private set; } = null!;
 
         public DateTime DataCadastro { get; private set; }
 
