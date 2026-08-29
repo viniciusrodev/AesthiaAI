@@ -9,7 +9,7 @@ namespace AesthiaAI.Domain.Entities
 {
     public class Cliente : Usuario
     {
-        public Cliente(string nome, string sobrenome, Cpf cpf, Email email, Telefone telefone, Endereco endereco, Autorizacao acesso) : base(nome, sobrenome, cpf, email, telefone, endereco)
+        public Cliente(string nome, string sobrenome, Cpf cpf, Email email, Telefone telefone, Endereco endereco) : base(nome, sobrenome, cpf, email, telefone, endereco)
         {
             Acesso = Autorizacao.Cliente;
         }

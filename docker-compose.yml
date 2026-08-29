@@ -1,0 +1,16 @@
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: aesthiaai-postgres
+    environment:
+      POSTGRES_DB: aesthiaai
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: AesthiaAi8743*
+    ports:
+      - "5433:5432"
+    volumes:
+      - aesthiaai_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  aesthiaai_postgres_data:

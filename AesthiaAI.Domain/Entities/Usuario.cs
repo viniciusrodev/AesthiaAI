@@ -40,7 +40,7 @@ namespace AesthiaAI.Domain.Entities
 
         public DateTime DataCadastro { get; private set; }
 
-        public DateTime DataNascimento { get; private set; }
+        public DateTime? DataNascimento { get; private set; }
 
 
 
@@ -127,8 +127,7 @@ namespace AesthiaAI.Domain.Entities
 
         private static void ValidarSobrenome(string sobrenome)
         {
-            if (string.IsNullOrWhiteSpace(sobrenome))
-            {
+          
                 Guard.AgainsNullOrWhiteSpace(sobrenome, "O sobrenome do usuário é obrigatório.");
 
 
@@ -148,25 +147,6 @@ namespace AesthiaAI.Domain.Entities
 
                 }
             }
-        }
-
-
-        private static void ValidarDataCadastro(DateTime dataCadastro)
-        {
-            if (dataCadastro == default)
-            {
-                throw new DomainExceptions(
-                    "A data de cadastro é obrigatória.");
-
-            }
-
-            if (dataCadastro > DateTime.Now)
-            {
-                throw new DomainExceptions(
-                    "A data de cadastro não pode estar no futuro.");
-
-            }
-        }
 
         private static void ValidarDataNascimento(DateTime dataNascimento)
         {

@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Itens de Solução/">
     <File Path=".gitignore" />
+    <File Path="docker-compose.yml" />
   </Folder>
   <Project Path="AesthiaAI.API/AesthiaAI.API.csproj" />
   <Project Path="AesthiaAI.Application/AesthiaAI.Application.csproj" />

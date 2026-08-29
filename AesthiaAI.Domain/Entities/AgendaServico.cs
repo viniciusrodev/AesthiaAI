@@ -1,7 +1,7 @@
 ﻿    using AesthiaAI.Domain.Enums;
     using AesthiaAI.Domain.Exceptions;
-    using AesthiaAI.Domain.Shared;
-    using System.Runtime.CompilerServices;
+    
+   
 
 namespace AesthiaAI.Domain.Entities
 {
@@ -33,11 +33,11 @@ namespace AesthiaAI.Domain.Entities
 
         public Guid Id { get; private set; }
 
-        public Esteticista Esteticista { get; private set; }
+        public Esteticista Esteticista { get; private set; } = null!;
 
-        public Cliente Cliente { get; private set; }
+        public Cliente Cliente { get; private set; } = null!;
 
-        public Servico Servico { get; private set; }
+        public Servico Servico { get; private set; } = null!;
 
         public Guid ClienteId { get; private set; }
 
