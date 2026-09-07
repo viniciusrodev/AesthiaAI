@@ -5,6 +5,7 @@ namespace AesthiaAI.Domain.ValueObjects
 {
     public class Cnpj
     {
+        protected Cnpj() { }
         public Cnpj(string numero)
         {
             Numero = numero;

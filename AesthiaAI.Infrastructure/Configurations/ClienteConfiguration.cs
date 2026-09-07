@@ -11,9 +11,9 @@ namespace AesthiaAI.Infrastructure.Configurations
         {
 
 
-            builder.Property(a => a.Acesso)
-                .IsRequired()
-                .HasConversion<string>();
+            builder.Property(u => u.Acesso)
+            .HasConversion<string>()
+            .IsRequired();
 
         }
     }

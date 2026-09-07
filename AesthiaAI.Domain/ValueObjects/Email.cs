@@ -8,6 +8,7 @@ namespace AesthiaAI.Domain.ValueObjects
 {
     public class Email
     {
+        protected Email() { }
         public Email(string endereco)
         {
             Validar(endereco);

@@ -1,4 +1,5 @@
-﻿using AesthiaAI.Domain.Exceptions;
+﻿using AesthiaAI.Domain.Enums;
+using AesthiaAI.Domain.Exceptions;
 using AesthiaAI.Domain.Shared;
 using AesthiaAI.Domain.ValueObjects;
 
@@ -11,7 +12,7 @@ namespace AesthiaAI.Domain.Entities
         protected Usuario() { }
        
 
-       public Usuario(string nome, string sobrenome, Cpf cpf, Email email, Telefone telefone, Endereco endereco)
+       public Usuario(string nome, string sobrenome, Cpf cpf, Email email, Telefone telefone, Endereco endereco, Autorizacao acesso)
         {
             Id = Guid.NewGuid();
 
@@ -21,7 +22,7 @@ namespace AesthiaAI.Domain.Entities
             AlterarEmail(email);
             AlterarTelefone(telefone);
             AlterarEndereco(endereco);
-
+            AlterarAcesso(acesso);
             DataCadastro = DateTime.UtcNow;
         }
 
@@ -41,6 +42,8 @@ namespace AesthiaAI.Domain.Entities
         public DateTime DataCadastro { get; private set; }
 
         public DateTime? DataNascimento { get; private set; }
+
+        public Autorizacao Acesso { get; protected set; }
 
 
 
@@ -169,6 +172,15 @@ namespace AesthiaAI.Domain.Entities
                 throw new DomainExceptions(
                     "A data de nascimento informada é inválida.");
             }
+        }
+        public void AlterarAcesso(Autorizacao acesso)
+        {
+            if (!Enum.IsDefined(typeof(Autorizacao), acesso))
+            {
+                throw new DomainExceptions("Nível de acesso inválido.");
+            }
+
+            Acesso = acesso;
         }
     }
 }

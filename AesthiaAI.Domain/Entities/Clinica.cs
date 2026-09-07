@@ -7,6 +7,8 @@ namespace AesthiaAI.Domain.Entities
 {
     public class Clinica
     {
+
+        protected Clinica() { }
         public Clinica(string nomeFantasia, Cnpj cnpj, Telefone telefone, Email email, Status status)
         {
             Id = Guid.NewGuid();

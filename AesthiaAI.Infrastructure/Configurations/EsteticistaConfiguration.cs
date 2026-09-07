@@ -10,11 +10,9 @@ namespace AesthiaAI.Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Esteticista> builder)
         {
-
-            builder.Property(a => a.Acesso)
-                .IsRequired()
-                .HasConversion<string>();
-
+            builder.Property(u => u.Acesso)
+                .HasConversion<string>()
+                .IsRequired();
         }
     }
 }

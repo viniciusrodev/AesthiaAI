@@ -8,6 +8,7 @@ namespace AesthiaAI.Domain.ValueObjects
 {
     public class Cpf
     {
+        protected Cpf() { }
         public Cpf(string numero)
         {
             Validar(numero);

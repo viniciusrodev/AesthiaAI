@@ -90,16 +90,16 @@ namespace AesthiaAI.Infrastructure.Configurations
                 .HasColumnName("Complemento")
                 .HasMaxLength(50);
 
-                builder.Property(u => u.DataCadastro)
-                .HasColumnName("DataCadastro")
-                .IsRequired();
-
-                builder.Property(u => u.DataNascimento)
-                    .IsRequired(false);
+     
             });
 
 
-          
+            builder.Property(u => u.DataCadastro)
+                .HasColumnName("DataCadastro")
+                .IsRequired();
+
+            builder.Property(u => u.DataNascimento)
+                .IsRequired(false);
         }
     }
 }

@@ -4,6 +4,8 @@ namespace AesthiaAI.Domain.ValueObjects
 {
     public class Endereco
     {
+
+    protected Endereco() { }
         public Endereco(string cep, string estado, string cidade, string bairro, string rua, string numero, string? complemento)
         {
             ValidarEndereco(cep, estado, cidade, bairro, rua, numero);
@@ -57,7 +59,9 @@ namespace AesthiaAI.Domain.ValueObjects
                 throw new DomainExceptions("Estado é obrigatório.");
 
             if (estado.Length != 2)
-                throw new DomainExceptions("Estado deve possuir 2 caracteres. Ex: RJ.");
+                throw new DomainExceptions(
+                    $"Estado inválido. Valor recebido: '{estado}'. Tamanho: {estado.Length}"
+                );
 
             if (!estado.All(char.IsLetter))
                 throw new DomainExceptions("Estado deve conter apenas letras.");

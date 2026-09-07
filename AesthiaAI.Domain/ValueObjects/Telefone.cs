@@ -8,6 +8,7 @@ namespace AesthiaAI.Domain.ValueObjects
 {
     public class Telefone
     {
+        protected Telefone() { }
         public Telefone(string numero)
         {
             Validar(numero);

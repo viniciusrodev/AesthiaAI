@@ -7,6 +7,9 @@ namespace AesthiaAI.Domain.Entities
 {
     public class AgendaServico
     {
+
+        private AgendaServico() { }
+        
         public AgendaServico(Esteticista esteticista, Cliente cliente, Servico servico, DateTime dataAgendamento, TimeSpan horaInicial, TimeSpan horaTermino, string observacao)
         {
 
