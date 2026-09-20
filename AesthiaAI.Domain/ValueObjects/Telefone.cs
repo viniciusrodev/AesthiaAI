@@ -17,7 +17,10 @@ namespace AesthiaAI.Domain.ValueObjects
 
         public string Numero { get; }
 
-
+        public override string ToString()
+        {
+            return Numero;
+        }
         private void Validar(string numero)
         {
 

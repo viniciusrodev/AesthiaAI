@@ -20,17 +20,34 @@ namespace AesthiaAI.API.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult>Criar(
+        public async Task<IActionResult> Criar(
            [FromBody] CriarClienteRequest request)
         {
-            var id =  await _clienteService.CriarAsync(request);
+            var id = await _clienteService.CriarAsync(request);
 
             return CreatedAtAction(
-                nameof(Criar),
+                nameof(ObterPorId),
                 new { id },
                 id
                 );
 
         }
+
+        [HttpGet("{id}")]
+
+        public async Task<IActionResult> ObterPorId(Guid id)
+        {
+
+            var cliente = await _clienteService.ObterPorIdAsync(id);
+
+            if(cliente == null)
+            {
+
+                return NotFound();
+            }
+
+            return Ok(cliente);
+        }
+
     }
 }

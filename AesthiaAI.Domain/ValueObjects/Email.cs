@@ -3,6 +3,7 @@
 using AesthiaAI.Domain.Exceptions;
 using AesthiaAI.Domain.Shared;
 using System.Net.Mail;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AesthiaAI.Domain.ValueObjects
 {
@@ -18,7 +19,10 @@ namespace AesthiaAI.Domain.ValueObjects
         public string Endereco { get; }
 
 
-
+        public override string ToString()
+        {
+            return Endereco;
+        }
         private void Validar(string endereco)
         {
             Guard.AgainsNullOrWhiteSpace(
@@ -48,6 +52,7 @@ namespace AesthiaAI.Domain.ValueObjects
                     "O formato do e-mail é inválido."
                 );
             }
+
         }
     }
 }

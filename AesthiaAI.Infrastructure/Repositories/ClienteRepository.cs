@@ -18,5 +18,13 @@ namespace AesthiaAI.Infrastructure.Repositories
             await _context.Clientes.AddAsync(cliente);
          
         }
+
+        public async Task<Cliente?> ObterPorIdAsync(Guid id)
+        {
+            return await _context.Clientes.FindAsync(id);
+
+            
+
+        }
     }
 }   

@@ -11,12 +11,14 @@ namespace AesthiaAI.Application.Services
     {
         private readonly IClienteRepository _clienteRepository;
         private readonly IUnitOfWork _unitOfWork;
+  
 
         public ClienteService(IClienteRepository clienteRepository, IUnitOfWork unitOfWork)
         {
 
             _clienteRepository = clienteRepository; 
             _unitOfWork = unitOfWork;
+           
         }
         public async Task<Guid> CriarAsync(CriarClienteRequest request)
         {
@@ -48,6 +50,31 @@ namespace AesthiaAI.Application.Services
             await _unitOfWork.SaveChangesAsync();
 
             return cliente.Id;
+        }
+
+
+
+        public async Task<ClienteResponseDto?> ObterPorIdAsync(Guid id)
+        {
+
+            var cliente = await _clienteRepository.ObterPorIdAsync(id);
+
+            if ( cliente == null)
+            {
+                return null;
+            }
+
+            return new ClienteResponseDto
+            {
+                Id = cliente.Id,
+                Nome = cliente.Nome,
+                Sobrenome = cliente.Sobrenome,
+                Email = cliente.Email.ToString(),
+                Telefone = cliente.Telefone.ToString(),
+            };
+
+
+          
         }
     }
 }
