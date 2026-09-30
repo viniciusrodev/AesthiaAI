@@ -8,5 +8,9 @@ namespace AesthiaAI.Application.Interfaces.Repositories
         Task AdicionarAsync(Cliente cliente);
 
         Task<Cliente?> ObterPorIdAsync(Guid ID);
+
+        Task<List<Cliente>> ObterTodosAsync();
+
+        public void Remover(Cliente cliente);
     }
 }

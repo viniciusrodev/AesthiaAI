@@ -1,6 +1,7 @@
 ﻿using AesthiaAI.Application.Interfaces.Repositories;
 using AesthiaAI.Domain.Entities;
 using AesthiaAI.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AesthiaAI.Infrastructure.Repositories
 {
@@ -23,7 +24,18 @@ namespace AesthiaAI.Infrastructure.Repositories
         {
             return await _context.Clientes.FindAsync(id);
 
-            
+        }
+
+        public async Task<List<Cliente>> ObterTodosAsync()
+        {
+
+            return await _context.Clientes.ToListAsync();
+
+        }
+
+        public void Remover(Cliente cliente)
+        {
+            _context.Clientes.Remove(cliente);
 
         }
     }

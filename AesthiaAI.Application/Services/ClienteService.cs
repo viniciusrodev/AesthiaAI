@@ -1,80 +1,158 @@
-﻿using AesthiaAI.Application.DTOs.Clientes;
-using AesthiaAI.Application.Interfaces;
-using AesthiaAI.Application.Interfaces.Repositories;
-using AesthiaAI.Domain.Entities;
-using AesthiaAI.Domain.ValueObjects;
+﻿    using AesthiaAI.Application.DTOs.Clientes;
+    using AesthiaAI.Application.Interfaces;
+    using AesthiaAI.Application.Interfaces.Repositories;
+    using AesthiaAI.Domain.Entities;
+    using AesthiaAI.Domain.ValueObjects;
 
 
-namespace AesthiaAI.Application.Services
-{
-    public class ClienteService : IClienteService
+    namespace AesthiaAI.Application.Services
     {
-        private readonly IClienteRepository _clienteRepository;
-        private readonly IUnitOfWork _unitOfWork;
+        public class ClienteService : IClienteService
+        {
+            private readonly IClienteRepository _clienteRepository;
+            private readonly IUnitOfWork _unitOfWork;
   
 
-        public ClienteService(IClienteRepository clienteRepository, IUnitOfWork unitOfWork)
-        {
-
-            _clienteRepository = clienteRepository; 
-            _unitOfWork = unitOfWork;
-           
-        }
-        public async Task<Guid> CriarAsync(CriarClienteRequest request)
-        {
-            var cpf = new Cpf(request.Cpf);
-            var email = new Email(request.Email);
-            var telefone = new Telefone(request.Telefone);
-
-
-            var endereco = new Endereco(
-                request.Cep,
-                request.Estado,
-                request.Cidade,
-                request.Bairro,
-                request.Rua,
-                request.Numero,
-                request.Complemento
-                );
-
-            var cliente = new Cliente(
-                request.Nome,
-                request.Sobrenome,
-                cpf,
-                email,
-                telefone,
-                endereco
-                );
-
-            await _clienteRepository.AdicionarAsync(cliente);
-            await _unitOfWork.SaveChangesAsync();
-
-            return cliente.Id;
-        }
-
-
-
-        public async Task<ClienteResponseDto?> ObterPorIdAsync(Guid id)
-        {
-
-            var cliente = await _clienteRepository.ObterPorIdAsync(id);
-
-            if ( cliente == null)
+            public ClienteService(IClienteRepository clienteRepository, IUnitOfWork unitOfWork)
             {
-                return null;
+
+                _clienteRepository = clienteRepository; 
+                _unitOfWork = unitOfWork;
+           
             }
 
-            return new ClienteResponseDto
+     
+
+            public async Task<Guid> CriarAsync(CriarClienteRequest request)
             {
-                Id = cliente.Id,
-                Nome = cliente.Nome,
-                Sobrenome = cliente.Sobrenome,
-                Email = cliente.Email.ToString(),
-                Telefone = cliente.Telefone.ToString(),
-            };
+                var cpf = new Cpf(request.Cpf);
+                var email = new Email(request.Email);
+                var telefone = new Telefone(request.Telefone);
+
+
+                var endereco = new Endereco(
+                    request.Cep,
+                    request.Estado,
+                    request.Cidade,
+                    request.Bairro,
+                    request.Rua,
+                    request.Numero,
+                    request.Complemento
+                    );
+
+                var cliente = new Cliente(
+                    request.Nome,
+                    request.Sobrenome,
+                    cpf,
+                    email,
+                    telefone,
+                    endereco
+                    );
+
+                await _clienteRepository.AdicionarAsync(cliente);
+                await _unitOfWork.SaveChangesAsync();
+
+                return cliente.Id;
+            }
+
+
+
+            public async Task<ClienteResponseDto?> ObterPorIdAsync(Guid id)
+            {
+
+                var cliente = await _clienteRepository.ObterPorIdAsync(id);
+
+                if ( cliente == null)
+                {
+                    return null;
+                }
+
+                return new ClienteResponseDto
+                {
+                    Id = cliente.Id,
+                    Nome = cliente.Nome,
+                    Sobrenome = cliente.Sobrenome,
+                    Email = cliente.Email.ToString(),
+                    Telefone = cliente.Telefone.ToString(),
+                };
 
 
           
+            }
+
+            public async Task<List<ClienteResponseDto>> ObterTodosAsync()
+            {
+
+                var clientes = await _clienteRepository.ObterTodosAsync();
+
+                var clientesDto = clientes.Select(cliente => new ClienteResponseDto
+               {
+
+                    Id = cliente.Id,
+                    Nome = cliente.Nome,
+                    Sobrenome = cliente.Sobrenome,
+                    Email = cliente.Email.ToString(),
+                    Telefone = cliente.Telefone.ToString(),
+
+                });
+
+                return clientesDto.ToList();
+          
+            }
+
+
+            public async Task<bool> AtualizarAsync(Guid id, AtualizarClienteRequest request)
+            {
+                var cliente = await _clienteRepository.ObterPorIdAsync(id);
+
+                if (cliente == null)
+                {
+                    return false;
+                }
+                var nome = request.Nome;
+                var sobrenome = request.Sobrenome;
+                var email = new Email(request.Email);
+                var telefone = new Telefone(request.Telefone);
+                var endereco = new Endereco(
+                   request.Cep,
+                    request.Estado,
+                    request.Cidade,
+                    request.Bairro,
+                    request.Rua,
+                    request.Numero,
+                    request.Complemento
+
+                    );
+
+
+
+                cliente.AlterarNome(nome);
+                cliente.AlterarSobrenome(sobrenome);
+                cliente.AlterarEmail(email);
+                cliente.AlterarTelefone(telefone);
+                cliente.AlterarEndereco(endereco);
+
+
+
+                await _unitOfWork.SaveChangesAsync();
+                return true;
+            }
+
+       
+            public async Task<bool> RemoverAsync(Guid id)
+            {
+                var cliente = await _clienteRepository.ObterPorIdAsync(id);
+
+                if (cliente == null)
+                {
+                    return false;
+                }
+
+                _clienteRepository.Remover(cliente);
+
+                await _unitOfWork.SaveChangesAsync();
+
+                return true;
+            }
         }
     }
-}
